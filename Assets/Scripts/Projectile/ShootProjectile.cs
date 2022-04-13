@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Player {
-    public class ShootProjectile : MonoBehaviour {
+namespace Projectile
+{
+    public class ShootProjectile : MonoBehaviour
+    {
         public GameObject projectile;
         public float speed;
 
 
-        public void Update() {
-          if (Input.GetMouseButtonDown(0)) {
+        public void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
                 Vector3 inertia = GetInertia();
                 var isoContoller = transform.GetComponent<IsometricPlayerMovementController>();
                 //always 'project' out from in front of the character
@@ -29,24 +33,29 @@ namespace Player {
         /// </summary>
         /// <param name="multiplier"></param>
         /// <returns></returns>
-        private Vector3 CalculateIsoForward(IsometricPlayerMovementController isoContoller) {
+        private Vector3 CalculateIsoForward(IsometricPlayerMovementController isoContoller)
+        {
             Vector2 lastDirection = isoContoller.isoRenderer.lastDirectionAsVector;
 
             Vector3 isoDirectionalForward = new Vector3(1, 1, 0);
 
-            if (lastDirection.x == 0) {
+            if (lastDirection.x == 0)
+            {
                 isoDirectionalForward.x = 0;
             }
 
-            if (lastDirection.x < 0) {
+            if (lastDirection.x < 0)
+            {
                 isoDirectionalForward.x = -1;
             }
 
-            if (lastDirection.y == 0) {
+            if (lastDirection.y == 0)
+            {
                 isoDirectionalForward.y = 0;
             }
 
-            if (lastDirection.y < 0) {
+            if (lastDirection.y < 0)
+            {
                 isoDirectionalForward.y = -1;
             }
 
@@ -57,7 +66,8 @@ namespace Player {
         /// Get Interia based on current player input (movement)
         /// </summary>
         /// <returns></returns>
-        private Vector3 GetInertia() {
+        private Vector3 GetInertia()
+        {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
