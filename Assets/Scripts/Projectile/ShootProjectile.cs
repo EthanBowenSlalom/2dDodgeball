@@ -13,25 +13,30 @@ namespace Projectile
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Vector3 inertia = GetInertia();
                 var isoContoller = transform.GetComponent<IsometricPlayerMovementController>();
-                var isoRenderer = isoContoller.GetComponent<IsometricCharacterRenderer>();
+                Player player = isoContoller.isoRenderer.player;
 
-                //always 'project' out from in front of the character
-                Vector3 isoForward = CalculateIsoForward(isoContoller);
+                if (player.CanThrowDodgeball())
+                {
+                    Vector3 inertia = GetInertia();
 
-                // create dodgeball as child of player shooting it
-                GameObject dodgeball =
-                    Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
+                    //always 'project' out from in front of the character
+                    Vector3 isoForward = CalculateIsoForward(isoContoller);
 
-                Vector3 force = (inertia + isoForward * speed) * isoContoller.movementSpeed;
-                //Debug.Log("Forward Vector: " + isoForward + "\tForce: " + force);
+                    // create dodgeball as child of player shooting it
+                    GameObject dodgeball =
+                        Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
 
-                //Vector3 mousePos = Vector3.Normalize(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-                //Vector3 force = (mousePos * speed);
-                dodgeball.GetComponent<Rigidbody2D>().AddForce(force);
+                    Vector3 force = (inertia + isoForward * speed) * isoContoller.movementSpeed;
+                    //Debug.Log("Forward Vector: " + isoForward + "\tForce: " + force);
 
-                isoRenderer.player.SubtractEnergyPoints(5);
+                    //Vector3 mousePos = Vector3.Normalize(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+                    //Vector3 force = (mousePos * speed);
+                    dodgeball.GetComponent<Rigidbody2D>().AddForce(force);
+
+                    player.SubtractEnergyPoints(5);
+                    player.BallThrown();
+                }
             }
         }
 

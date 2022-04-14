@@ -6,4 +6,5 @@ public static class Actions
     public static Action<Player> HealthPointsChange;
     public static Action<Player> EnergyPointsChange;
     public static Action<Player> HitCountChange;
+    public static Action<Player> BallCountUpdate;
 }

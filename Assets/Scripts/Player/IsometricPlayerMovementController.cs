@@ -46,22 +46,17 @@ public class IsometricPlayerMovementController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        /*
-        Debug.Log("IsometricPlayerMovementController - OnCollisionEnter2D!");
+        string gameObjectName = collision.gameObject.name;
+        if (!gameObjectName.Equals("PillarTilemap")
+            && !gameObjectName.Contains("CourtDodgeball")) {
+            var player = transform.GetComponent<Player>();
 
-        foreach (ContactPoint2D contact in collision.contacts)
-        {
-            Debug.Log(contact.collider.name);
-        }
-        */
+            player.SubstractHealthPoints(10);
 
-        var player = transform.GetComponent<Player>();
-
-        player.SubstractHealthPoints(10);
-
-        if (player.healthPoints <= 0)
-        {
-            Destroy(gameObject);
+            if (player.healthPoints <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

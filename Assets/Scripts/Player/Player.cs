@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public int healthPoints { get; set; } = 100;
     public int energyPoints { get; set; } = 150;
     public int hitCount { get; set; } = 0;
+    public int dodgeBallCount { get; set; } = 0;
 
 
     public void AddHealthPoints(int healthPointsDelta)
@@ -38,5 +39,23 @@ public class Player : MonoBehaviour
     {
         hitCount++;
         Actions.HitCountChange?.Invoke(this);
+    }
+
+    public void BallThrown()
+    {
+        dodgeBallCount--;
+        Actions.BallCountUpdate?.Invoke(this);
+    }
+
+    public void BallPickedup()
+    {
+        dodgeBallCount++;
+        Actions.BallCountUpdate?.Invoke(this);
+    }
+
+
+    public bool CanThrowDodgeball()
+    {
+        return dodgeBallCount > 0;
     }
 }
