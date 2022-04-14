@@ -44,6 +44,27 @@ public class IsometricPlayerMovementController : MonoBehaviour
         rbody.MovePosition(newPos);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        /*
+        Debug.Log("IsometricPlayerMovementController - OnCollisionEnter2D!");
+
+        foreach (ContactPoint2D contact in collision.contacts)
+        {
+            Debug.Log(contact.collider.name);
+        }
+        */
+
+        var player = transform.GetComponent<Player>();
+
+        player.SubstractHealthPoints(10);
+
+        if (player.healthPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     /*WIP
     public Vector2 convertInputVectorToIsoVectorDirection(Vector2 input) {
       float x = input.x;

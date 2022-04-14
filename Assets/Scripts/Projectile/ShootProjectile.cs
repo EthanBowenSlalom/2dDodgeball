@@ -15,16 +15,23 @@ namespace Projectile
             {
                 Vector3 inertia = GetInertia();
                 var isoContoller = transform.GetComponent<IsometricPlayerMovementController>();
+                var isoRenderer = isoContoller.GetComponent<IsometricCharacterRenderer>();
+
                 //always 'project' out from in front of the character
                 Vector3 isoForward = CalculateIsoForward(isoContoller);
 
-                GameObject bullet =
-                    Instantiate(projectile, transform.position + isoForward, Quaternion.identity);
+                // create dodgeball as child of player shooting it
+                GameObject dodgeball =
+                    Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
+
                 Vector3 force = (inertia + isoForward * speed) * isoContoller.movementSpeed;
                 //Debug.Log("Forward Vector: " + isoForward + "\tForce: " + force);
-                bullet.GetComponent<Rigidbody2D>().AddForce(force);
 
-                /* TODO: destory projectiles after certain time or collison */
+                //Vector3 mousePos = Vector3.Normalize(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+                //Vector3 force = (mousePos * speed);
+                dodgeball.GetComponent<Rigidbody2D>().AddForce(force);
+
+                isoRenderer.player.SubtractEnergyPoints(5);
             }
         }
 

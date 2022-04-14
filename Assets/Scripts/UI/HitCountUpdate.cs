@@ -5,17 +5,28 @@ using TMPro;
 
 public class HitCountUpdate : MonoBehaviour
 {
-  [SerializeField]
-   private TMP_Text tmpText;
+    [SerializeField]
+    private TMP_Text tmpText;
 
-   private int hitCount = 0;
-
-   void Start() {
-        tmpText.text = "Hit Count: Nil";
-   }
-
-    void Update()
+    public void OnEnable()
     {
-        tmpText.text = "Hit Count: " + Projectile.Projectile.hitCount;
+        Actions.HitCountChange += OnHitCountChange;
     }
+
+    public void OnDisable()
+    {
+        Actions.HitCountChange -= OnHitCountChange;
+    }
+
+
+    void Start()
+    {
+        tmpText.text = "Hit: ";
+    }
+
+    private void OnHitCountChange(Player player)
+    {
+        tmpText.text = "Hit: " + player.hitCount;
+    }
+    
 }
