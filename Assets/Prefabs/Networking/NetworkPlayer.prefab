@@ -72,8 +72,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e30b473d5541318d08231b0cc048b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
+  _interpolationDataSource: 1
   Controller: {fileID: 5228036429333949703}
+  Renderer: {fileID: 5228036429333949696}
 --- !u!114 &3872674225018188869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,9 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0038be263d74d9b95eb7a5862c9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2.2
-  sprintMultiplier: 1.5
-  isoRenderer: {fileID: 5228036429333949696}
+  MovementSpeed: 2.2
+  SprintMultiplier: 1.5
 --- !u!114 &5228036429333949696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0631f36ac84554335b5b1f70f25312fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  PlayerStats: {fileID: 0}
   lastDirectionAsVector: {x: 0, y: 0}
   lastDirection: 0
 --- !u!95 &5228036429333949697

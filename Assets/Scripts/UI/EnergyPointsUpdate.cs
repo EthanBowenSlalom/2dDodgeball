@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using TMPro;
 
@@ -24,9 +25,9 @@ public class EnergyPointsUpdate : MonoBehaviour
         tmpText.text = "Energy: ";
     }
 
-    private void OnEnergyPointsChange(Player player)
+    private void OnEnergyPointsChange(PlayerStats playerStats)
     {
-        tmpText.text = "Energy: " + player.energyPoints;
+        tmpText.text = "Energy: " + playerStats.EnergyPoints;
     }
 
 }

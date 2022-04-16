@@ -1,42 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class IsometricPlayerMovementController : MonoBehaviour
+namespace Player
 {
-
-    public float movementSpeed = 2.2f;
-    public float sprintMultiplier = 1.5f;
-    public IsometricCharacterRenderer isoRenderer;
-
-    private void Awake()
+    public class IsometricPlayerMovementController : MonoBehaviour
     {
-        isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
-    }
+        public float MovementSpeed = 2.2f;
+        public float SprintMultiplier = 1.5f;
 
-    public void Move(Vector3 delta)
-    {
-        isoRenderer.SetDirection(delta.normalized);
-    }
+        public IsometricCharacterRenderer Renderer { get; private set; }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // TODO: Handle Network Collision
-        string gameObjectName = collision.gameObject.name;
-        if (!gameObjectName.Equals("PillarTilemap")
-            && !gameObjectName.Contains("CourtDodgeball")) {
-            var player = transform.GetComponent<Player>();
+        private void Awake()
+        {
+            Renderer = GetComponentInChildren<IsometricCharacterRenderer>();
+        }
 
-            player.SubstractHealthPoints(10);
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            // TODO: Handle Network Collision
+            string gameObjectName = collision.gameObject.name;
+            if (!gameObjectName.Equals("PillarTilemap")
+                && !gameObjectName.Contains("CourtDodgeball")) {
+                var player = transform.GetComponent<PlayerStats>();
 
-            if (player.healthPoints <= 0)
-            {
-                Destroy(gameObject);
+                player.SubstractHealthPoints(10);
+
+                if (player.HealthPoints <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
-    }
 
-    /*WIP
+        /*WIP
     public Vector2 convertInputVectorToIsoVectorDirection(Vector2 input) {
       float x = input.x;
       float y = input.y
@@ -48,4 +43,5 @@ public class IsometricPlayerMovementController : MonoBehaviour
       // input vector already formatted correctly for iso movements
       return input;
     }*/
+    }
 }

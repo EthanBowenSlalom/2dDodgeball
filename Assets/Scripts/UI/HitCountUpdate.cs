@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using TMPro;
 
@@ -24,9 +25,9 @@ public class HitCountUpdate : MonoBehaviour
         tmpText.text = "Hit: ";
     }
 
-    private void OnHitCountChange(Player player)
+    private void OnHitCountChange(PlayerStats playerStats)
     {
-        tmpText.text = "Hit: " + player.hitCount;
+        tmpText.text = "Hit: " + playerStats.HitCount;
     }
     
 }

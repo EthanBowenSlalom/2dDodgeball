@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Projectile
@@ -14,28 +15,28 @@ namespace Projectile
             if (Input.GetMouseButtonDown(0))
             {
                 var isoContoller = transform.GetComponent<IsometricPlayerMovementController>();
-                Player player = isoContoller.isoRenderer.player;
+                var playerStats = isoContoller.Renderer.PlayerStats;
 
-                if (player.CanThrowDodgeball())
+                if (playerStats.CanThrowDodgeball())
                 {
-                    Vector3 inertia = GetInertia();
+                    var inertia = GetInertia();
 
                     //always 'project' out from in front of the character
-                    Vector3 isoForward = CalculateIsoForward(isoContoller);
+                    var isoForward = CalculateIsoForward(isoContoller);
 
-                    // create dodgeball as child of player shooting it
-                    GameObject dodgeball =
-                        Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
+                    // create dodge ball as child of player shooting it
+                    // TODO: Instantiate In Network
+                    var dodgeball = Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
 
-                    Vector3 force = (inertia + isoForward * speed) * isoContoller.movementSpeed;
+                    var force = (inertia + isoForward * speed) * isoContoller.MovementSpeed;
                     //Debug.Log("Forward Vector: " + isoForward + "\tForce: " + force);
 
                     //Vector3 mousePos = Vector3.Normalize(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
                     //Vector3 force = (mousePos * speed);
                     dodgeball.GetComponent<Rigidbody2D>().AddForce(force);
 
-                    player.SubtractEnergyPoints(5);
-                    player.BallThrown();
+                    playerStats.SubtractEnergyPoints(5);
+                    playerStats.BallThrown();
                 }
             }
         }
@@ -47,7 +48,7 @@ namespace Projectile
         /// <returns></returns>
         private Vector3 CalculateIsoForward(IsometricPlayerMovementController isoContoller)
         {
-            Vector2 lastDirection = isoContoller.isoRenderer.lastDirectionAsVector;
+            Vector2 lastDirection = isoContoller.Renderer.lastDirectionAsVector;
 
             Vector3 isoDirectionalForward = new Vector3(1, 1, 0);
 

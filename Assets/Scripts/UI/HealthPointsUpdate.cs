@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using TMPro;
 
@@ -23,9 +24,9 @@ public class HealthPointsUpdate : MonoBehaviour
         tmpText.text = "Health: ";
     }
 
-    private void OnHealthPointsChange(Player player)
+    private void OnHealthPointsChange(PlayerStats playerStats)
     {
-        tmpText.text = "Health: " + player.healthPoints;
+        tmpText.text = "Health: " + playerStats.HealthPoints;
     }
 
 }

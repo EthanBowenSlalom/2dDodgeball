@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using TMPro;
 
@@ -24,9 +25,9 @@ public class BallCountUpdate : MonoBehaviour
         tmpText.text = "Dodge Balls: ";
     }
 
-    private void OnBallCountUpdate(Player player)
+    private void OnBallCountUpdate(PlayerStats playerStats)
     {
-        tmpText.text = "Dodge Balls: " + player.dodgeBallCount;
+        tmpText.text = "Dodge Balls: " + playerStats.DodgeBallCount;
     }
 
 }
