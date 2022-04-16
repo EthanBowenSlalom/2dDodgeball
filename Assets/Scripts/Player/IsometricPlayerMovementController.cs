@@ -9,43 +9,20 @@ public class IsometricPlayerMovementController : MonoBehaviour
     public float sprintMultiplier = 1.5f;
     public IsometricCharacterRenderer isoRenderer;
 
-    Rigidbody2D rbody;
-
     private void Awake()
     {
-        rbody = GetComponent<Rigidbody2D>();
         isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
     }
 
-
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
-            movementSpeed *= sprintMultiplier;
-        } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
-            movementSpeed /= sprintMultiplier;
-        }
-    }
-    // Update is called once per frame
-    void FixedUpdate()
+    public void Move(Vector3 delta)
     {
-        Vector2 currentPos = rbody.position;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
-        inputVector = Vector2.ClampMagnitude(inputVector, 1);
-
-        //Vector2 isoVector = convertInputVectorToIsoVectorDirection(inputVector);
-        //Debug.Log("Iso Vector: " + isoVector);
-
-        Vector2 movement = inputVector * movementSpeed;
-        Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
-        isoRenderer.SetDirection(movement);
-        rbody.MovePosition(newPos);
+        isoRenderer.SetDirection(delta.normalized);
+        transform.position += delta;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // TODO: Handle Network Collision
         string gameObjectName = collision.gameObject.name;
         if (!gameObjectName.Equals("PillarTilemap")
             && !gameObjectName.Contains("CourtDodgeball")) {
