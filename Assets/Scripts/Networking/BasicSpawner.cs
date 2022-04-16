@@ -11,7 +11,7 @@ namespace Networking
     {
         private NetworkRunner _runner;
 
-        [SerializeField] private NetworkPrefabRef _playerPrefab;
+        [SerializeField] private NetworkPrefabRef PlayerPrefab;
 
         private readonly Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
 
@@ -19,9 +19,9 @@ namespace Networking
         {
             Debug.Log($"Player {player.PlayerId} Connected");
 
-            var networkPlayerObject = runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, player);
+            var networkPlayerObject = runner.Spawn(PlayerPrefab, Vector3.zero, Quaternion.identity, player);
 
-            // Keep track of the player avatars so we can remove it when they disconnect
+            // Keep track of the player avatars so we can remove them when they disconnect
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
 

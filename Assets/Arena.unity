@@ -9173,7 +9173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09541970e0591342b89dd101454403f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab:
+  PlayerPrefab:
     RawGuidValue: c245b0601e63bf64e9c561267d862825
 --- !u!4 &1820483517
 Transform:
