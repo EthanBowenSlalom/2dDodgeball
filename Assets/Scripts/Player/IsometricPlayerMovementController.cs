@@ -17,7 +17,6 @@ public class IsometricPlayerMovementController : MonoBehaviour
     public void Move(Vector3 delta)
     {
         isoRenderer.SetDirection(delta.normalized);
-        transform.position += delta;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

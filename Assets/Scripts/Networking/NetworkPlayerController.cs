@@ -19,6 +19,8 @@ namespace Networking
 
                 var delta = sprintMultiplier * Controller.movementSpeed * input.Direction * Runner.DeltaTime;
                 Debug.Log(Runner.DeltaTime);
+
+                transform.position += (Vector3) delta;
                 Controller.Move(delta);
             }
         }
