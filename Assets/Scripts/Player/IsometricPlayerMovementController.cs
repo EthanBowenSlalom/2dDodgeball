@@ -1,68 +1,70 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class IsometricPlayerMovementController : MonoBehaviour
+namespace Player
 {
-
-    public float movementSpeed = 2.2f;
-    public float sprintMultiplier = 1.5f;
-    public IsometricCharacterRenderer isoRenderer;
-
-    Rigidbody2D rbody;
-
-    private void Awake()
+    public class IsometricPlayerMovementController : MonoBehaviour
     {
-        rbody = GetComponent<Rigidbody2D>();
-        isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
-    }
+        public float MovementSpeed = 2.2f;
+        public float SprintMultiplier = 1.5f;
 
+        public IsometricCharacterRenderer Renderer { get; private set; }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
-            movementSpeed *= sprintMultiplier;
-        } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
-            movementSpeed /= sprintMultiplier;
+        private void Awake()
+        {
+            Renderer = GetComponentInChildren<IsometricCharacterRenderer>();
         }
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Vector2 currentPos = rbody.position;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            // TODO: Handle Network Collision
+            string gameObjectName = collision.gameObject.name;
+            if (!gameObjectName.Equals("PillarTilemap")
+                && !gameObjectName.Contains("CourtDodgeball")) {
+                var player = transform.GetComponent<PlayerStats>();
 
-        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
-        inputVector = Vector2.ClampMagnitude(inputVector, 1);
+                player.SubstractHealthPoints(10);
 
-        //Vector2 isoVector = convertInputVectorToIsoVectorDirection(inputVector);
-        //Debug.Log("Iso Vector: " + isoVector);
-
-        Vector2 movement = inputVector * movementSpeed;
-        Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
-        isoRenderer.SetDirection(movement);
-        rbody.MovePosition(newPos);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        string gameObjectName = collision.gameObject.name;
-        if (!gameObjectName.Equals("PillarTilemap")
-            && !gameObjectName.Contains("CourtDodgeball")) {
-            var player = transform.GetComponent<Player>();
-
-            player.SubstractHealthPoints(10);
-
-            if (player.healthPoints <= 0)
-            {
-                Destroy(gameObject);
+                if (player.HealthPoints <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
-    }
 
+        void Update() {
+            if (Input.GetKeyDown(KeyCode.LeftShift)) {
+                MovementSpeed *= SprintMultiplier;
+            } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
+                MovementSpeed /= SprintMultiplier;
+            }
+        }
 
-    /*WIP
+        // Update is called once per frame
+        void FixedUpdate()
+        {
+            Vector2 currentPos = transform.position;
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+
+            Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
+            inputVector = Vector2.ClampMagnitude(inputVector, 1);
+
+            //Vector2 isoVector = convertInputVectorToIsoVectorDirection(inputVector);
+            //Debug.Log("Iso Vector: " + isoVector);
+
+            Vector2 movement = inputVector * MovementSpeed;
+            Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
+            Renderer.SetDirection(movement);
+
+            transform.position = newPos;
+        }
+
+        public void Move(Vector3 delta)
+        {
+            // do the movement here
+        }
+
+        /*WIP
     public Vector2 convertInputVectorToIsoVectorDirection(Vector2 input) {
       float x = input.x;
       float y = input.y
@@ -74,4 +76,5 @@ public class IsometricPlayerMovementController : MonoBehaviour
       // input vector already formatted correctly for iso movements
       return input;
     }*/
+    }
 }

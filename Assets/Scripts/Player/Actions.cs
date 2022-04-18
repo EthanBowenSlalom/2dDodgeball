@@ -1,14 +1,17 @@
 ﻿using System;
+using Powerups;
 
-
-public static class Actions
+namespace Player
 {
-    // Player actions
-    public static Action<Player> HealthPointsChange;
-    public static Action<Player> EnergyPointsChange;
-    public static Action<Player> HitCountChange;
-    public static Action<Player> BallCountUpdate;
+    public static class Actions
+    {
+        // Player actions
+        public static Action<PlayerStats> HealthPointsChange;
+        public static Action<PlayerStats> EnergyPointsChange;
+        public static Action<PlayerStats> HitCountChange;
+        public static Action<PlayerStats> BallCountUpdate;
 
-    // Power-Ups
-    public static Action<PowerupType> PowerupPickedUp;
+        // Power-Ups
+        public static Action<PowerupType> PowerupPickedUp;
+    }
 }

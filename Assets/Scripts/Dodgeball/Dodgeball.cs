@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 using UnityEngine.UIElements;
 using TMPro;
 
@@ -8,13 +9,13 @@ namespace Dodgeball
     {
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Player player = collision.rigidbody.gameObject.GetComponent<Player>();
+            PlayerStats playerStats = collision.rigidbody.gameObject.GetComponent<PlayerStats>();
             
             //collision.GetContact(0).otherRigidbody
 
             //var player = transform.GetComponentInParent<Player>();
 
-            player.BallPickedup();
+            playerStats.BallPickedup();
 
             Destroy(gameObject);
         }
