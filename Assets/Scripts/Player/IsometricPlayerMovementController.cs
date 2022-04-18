@@ -31,6 +31,34 @@ namespace Player
             }
         }
 
+        void Update() {
+            if (Input.GetKeyDown(KeyCode.LeftShift)) {
+                MovementSpeed *= SprintMultiplier;
+            } else if (Input.GetKeyUp(KeyCode.LeftShift)) {
+                MovementSpeed /= SprintMultiplier;
+            }
+        }
+
+        // Update is called once per frame
+        void FixedUpdate()
+        {
+            Vector2 currentPos = transform.position;
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+
+            Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
+            inputVector = Vector2.ClampMagnitude(inputVector, 1);
+
+            //Vector2 isoVector = convertInputVectorToIsoVectorDirection(inputVector);
+            //Debug.Log("Iso Vector: " + isoVector);
+
+            Vector2 movement = inputVector * MovementSpeed;
+            Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
+            Renderer.SetDirection(movement);
+
+            transform.position = newPos;
+        }
+
         public void Move(Vector3 delta)
         {
             // do the movement here
