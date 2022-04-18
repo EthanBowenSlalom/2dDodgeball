@@ -1,4 +1,5 @@
 ﻿using System;
+using Powerups;
 
 namespace Player
 {
@@ -9,5 +10,8 @@ namespace Player
         public static Action<PlayerStats> EnergyPointsChange;
         public static Action<PlayerStats> HitCountChange;
         public static Action<PlayerStats> BallCountUpdate;
+
+        // Power-Ups
+        public static Action<PowerupType> PowerupPickedUp;
     }
 }

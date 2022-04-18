@@ -31,6 +31,11 @@ namespace Player
             }
         }
 
+        public void Move(Vector3 delta)
+        {
+            // do the movement here
+        }
+
         /*WIP
     public Vector2 convertInputVectorToIsoVectorDirection(Vector2 input) {
       float x = input.x;

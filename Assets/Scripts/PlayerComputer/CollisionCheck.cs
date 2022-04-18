@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CollisionCheck : MonoBehaviour
+namespace PlayerComputer
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class CollisionCheck : MonoBehaviour
     {
-        Destroy(gameObject);
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Destroy(gameObject);
+        }
     }
 }

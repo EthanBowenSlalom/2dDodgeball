@@ -24,9 +24,16 @@ namespace Projectile
                     //always 'project' out from in front of the character
                     var isoForward = CalculateIsoForward(isoContoller);
 
-                    // create dodge ball as child of player shooting it
-                    // TODO: Instantiate In Network
-                    var dodgeball = Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
+                    if(playerStats.isDoubleShot)
+                    {
+                        /* TODO: START HERE ETHAN, position the blals next to each other but not touching
+                         * Continue working on Powerup system */
+                        GameObject dodgeballDouble =
+                        Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
+                    }
+                    // create dodgeball as child of player shooting it
+                    GameObject dodgeball =
+                        Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
 
                     var force = (inertia + isoForward * speed) * isoContoller.MovementSpeed;
                     //Debug.Log("Forward Vector: " + isoForward + "\tForce: " + force);
