@@ -23,6 +23,13 @@ namespace Projectile
                     //always 'project' out from in front of the character
                     Vector3 isoForward = CalculateIsoForward(isoContoller);
 
+                    if(player.isDoubleShot)
+                    {
+                        /* TODO: START HERE ETHAN, position the blals next to each other but not touching
+                         * Continue working on Powerup system */
+                        GameObject dodgeballDouble =
+                        Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);
+                    }
                     // create dodgeball as child of player shooting it
                     GameObject dodgeball =
                         Instantiate(projectile, transform.position + isoForward, Quaternion.identity, isoContoller.transform);

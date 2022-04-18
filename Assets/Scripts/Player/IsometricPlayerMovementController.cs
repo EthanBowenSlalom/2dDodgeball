@@ -25,6 +25,7 @@ public class IsometricPlayerMovementController : MonoBehaviour
             movementSpeed /= sprintMultiplier;
         }
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -59,6 +60,7 @@ public class IsometricPlayerMovementController : MonoBehaviour
             }
         }
     }
+
 
     /*WIP
     public Vector2 convertInputVectorToIsoVectorDirection(Vector2 input) {
